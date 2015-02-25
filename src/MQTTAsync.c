@@ -1271,7 +1271,6 @@ thread_return_type WINAPI MQTTAsync_sendThread(void* n)
 				break;  /* no commands were processed, so go into a wait */
 		}
 #if !defined(WIN32) && !defined(WIN64)
-		rc =  Thread_wait_cond(send_cond, 1);
 		if ((rc = Thread_wait_cond(send_cond, 1)) != 0 && rc != ETIMEDOUT)
 			Log(LOG_ERROR, -1, "Error %d waiting for condition variable", rc);
 #else
