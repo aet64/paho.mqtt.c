@@ -690,10 +690,15 @@ typedef struct
       * MQTTVERSION_3_1_1 (4) = only try version 3.1.1
 	  */
 	int MQTTVersion;
+	/**
+      * Sets the network Latency.
+	  */
+    int networkLatencyInSeconds;    // NOTE
+
 } MQTTAsync_connectOptions;
 
 
-#define MQTTAsync_connectOptions_initializer { {'M', 'Q', 'T', 'C'}, 3, 60, 1, 10, NULL, NULL, NULL, 30, 0, NULL, NULL, NULL, NULL, 0, NULL, 0}
+#define MQTTAsync_connectOptions_initializer { {'M', 'Q', 'T', 'C'}, 3, 60, 1, 10, NULL, NULL, NULL, 30, 0, NULL, NULL, NULL, NULL, 0, NULL, 0, 0}
 
 /**
   * This function attempts to connect a previously-created client (see

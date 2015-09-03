@@ -537,8 +537,13 @@ void MQTTProtocol_keepalive(time_t now)
 			}
 			else
 			{
-				Log(TRACE_PROTOCOL, -1, "PINGRESP not received in keepalive interval for client %s on socket %d, disconnecting", client->clientID, client->net.socket);
-				MQTTProtocol_closeSession(client, 1);
+                // NOTE
+                if ((difftime(now, client->net.lastSent) >= (client->keepAliveInterval + client->networkLatencyInSeconds)) ||
+                    (difftime(now, client->net.lastReceived) >= (client->keepAliveInterval + client->networkLatencyInSeconds))) {
+
+					Log(TRACE_PROTOCOL, -1, "PINGRESP not received in keepalive interval for client %s on socket %d, disconnecting", client->clientID, client->net.socket);
+					MQTTProtocol_closeSession(client, 1);
+                }
 			}
 		}
 	}

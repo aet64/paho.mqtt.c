@@ -188,6 +188,7 @@ typedef struct
 	MQTTClient_SSLOptions *sslopts;
 	SSL_SESSION* session;    /***< SSL session pointer for fast handhake */
 #endif
+    int networkLatencyInSeconds;    // NOTE
 } Clients;
 
 int clientIDCompare(void* a, void* b);

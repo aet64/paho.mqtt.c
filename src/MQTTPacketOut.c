@@ -88,7 +88,7 @@ int MQTTPacket_send_connect(Clients* client, int MQTTVersion)
 		packet.flags.bits.password = 1;
 
 	writeChar(&ptr, packet.flags.all);
-	writeInt(&ptr, client->keepAliveInterval);
+    writeInt(&ptr, (client->keepAliveInterval + client->networkLatencyInSeconds)); // NOTE
 	writeUTF(&ptr, client->clientID);
 	if (client->will)
 	{

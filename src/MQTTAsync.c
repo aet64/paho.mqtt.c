@@ -1979,6 +1979,7 @@ int MQTTAsync_connect(MQTTAsync handle, const MQTTAsync_connectOptions* options)
 	}
 
 	m->c->keepAliveInterval = options->keepAliveInterval;
+    m->c->networkLatencyInSeconds = options->networkLatencyInSeconds;   // NOTE
 	m->c->cleansession = options->cleansession;
 	m->c->maxInflightMessages = options->maxInflight;
 	if (options->struct_version == 3)

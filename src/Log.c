@@ -161,14 +161,14 @@ int Log_initialize(Log_nameValue* info)
 		else if (strcmp(envval, "ERROR") == 0  || strcmp(envval, "TRACE_ERROR") == 0)
 			trace_output_level = LOG_ERROR;
 	}
-	Log_output(TRACE_MINIMUM, "=========================================================");
-	Log_output(TRACE_MINIMUM, "                   Trace Output");
+	// Log_output(TRACE_MINIMUM, "=========================================================");
+	// Log_output(TRACE_MINIMUM, "                   Trace Output");
 	if (info)
 	{
 		while (info->name)
 		{
 			snprintf(msg_buf, sizeof(msg_buf), "%s: %s", info->name, info->value);
-			Log_output(TRACE_MINIMUM, msg_buf);
+			// Log_output(TRACE_MINIMUM, msg_buf);
 			info++;
 		}
 	}
@@ -185,12 +185,12 @@ int Log_initialize(Log_nameValue* info)
 			strcpy(msg_buf, "/proc/version: ");
 			len = strlen(msg_buf);
 			if (fgets(&msg_buf[len], sizeof(msg_buf) - len, vfile))
-				Log_output(TRACE_MINIMUM, msg_buf);
+				// Log_output(TRACE_MINIMUM, msg_buf);
 			fclose(vfile);
 		}
 	}
 #endif
-	Log_output(TRACE_MINIMUM, "=========================================================");
+	// Log_output(TRACE_MINIMUM, "=========================================================");
 		
 	return rc;
 }
@@ -300,10 +300,10 @@ static char* Log_formatTraceEntry(traceEntry* cur_entry)
 #else
 	sprintf(&msg_buf[22], ".%.3hu ", cur_entry->ts.millitm);
 #endif
-	buf_pos = 27;
+	buf_pos = 22;
 
-	sprintf(msg_buf, "(%.4d)", cur_entry->sametime_count);
-	msg_buf[6] = ' ';
+    sprintf(&msg_buf[7], "{LibPaho::Log} ");
+
 
 	if (cur_entry->has_rc == 2)
 		strncpy(&msg_buf[buf_pos], cur_entry->name, sizeof(msg_buf)-buf_pos);
